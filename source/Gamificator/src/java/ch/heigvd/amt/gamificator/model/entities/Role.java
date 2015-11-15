@@ -11,5 +11,17 @@ import javax.persistence.Entity;
 @Entity
 public class Role extends AbstractGenericEntity
 {
+    String role;
+    
     public Role(){}
+
+    public String getRole()
+    {
+        return role;
+    }
+
+    public void setRole(String role)
+    {
+        this.role = role;
+    }
 }
