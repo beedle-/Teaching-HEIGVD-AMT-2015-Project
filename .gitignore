@@ -7,3 +7,5 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 /source/Gamificator/nbproject/private/
+/source/Gamificator/build/
+/source/Gamificator/dist/

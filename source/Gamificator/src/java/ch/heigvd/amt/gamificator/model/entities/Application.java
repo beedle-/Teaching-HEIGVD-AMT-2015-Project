@@ -24,17 +24,19 @@ public class Application extends AbstractGenericEntity
     @OneToMany
     private List<EndUser> endUsers;
         
-    private String Name;  
-    private String Description;
+    private String name;  
+    private String description;
+    private boolean active;
     
     public Application(){}
 
-    public Application(Account account, ApiKey apiKey, String Name, String Description)
+    public Application(Account account, ApiKey apiKey, String name, String description, boolean active)
     {
         this.account = account;
         this.apiKey = apiKey;
-        this.Name = Name;
-        this.Description = Description;
+        this.name = name;
+        this.description = description;
+        this.active = active;
     }
     
     public Account getAccount()
@@ -59,22 +61,32 @@ public class Application extends AbstractGenericEntity
 
     public String getName()
     {
-        return Name;
+        return name;
     }
         
-    public void setName(String Name)
+    public void setName(String name)
     {
-        this.Name = Name;
+        this.name = name;
     }
 
     public String getDescription()
     {
-        return Description;
+        return description;
     }
     
-    public void setDescription(String Description)
+    public void setDescription(String description)
     {
-        this.Description = Description;
+        this.description = description;
+    }
+
+    public boolean isActive()
+    {
+        return active;
+    }
+
+    public void setActive(boolean active)
+    {
+        this.active = active;
     }
     
     public List<EndUser> getEndUsers() 
