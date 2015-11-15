@@ -1,6 +1,5 @@
 <%-- 
     Document   : home
-    Created on : 15 nov. 2015, 22:09:51
     Author     : Bastien Rouiller
 --%>
 

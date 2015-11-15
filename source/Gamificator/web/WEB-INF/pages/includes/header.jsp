@@ -31,8 +31,8 @@
             <a class="navbar-brand" href="">Gamificator</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="pages/about">About</a></li>              
+            <ul class="nav navbar-nav">    
+              <li><a href="account">Create a new account</a></li>
             </ul>
             <!-- <ul class="nav navbar-nav navbar-right">
               <li><a href="./auth?action=logout">Logout</a></li>
