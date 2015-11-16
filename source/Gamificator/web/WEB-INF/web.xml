@@ -14,7 +14,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccountServlet</servlet-name>
-        <url-pattern>/account</url-pattern>
+        <url-pattern>/accountManagement</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -67,7 +67,27 @@ public class AccountServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        processRequest(request, response);
+        response.setContentType("text/html");
+        try (PrintWriter out = response.getWriter())
+        {
+            String email = request.getParameter("email");
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String pwd = request.getParameter("pwd");
+            String confirmPwd = request.getParameter("confirmPwd");
+            String validation = "You have succesfully created an account with this data";
+            
+            
+            request.setAttribute("email", email);
+            request.setAttribute("firstName", firstName);
+            request.setAttribute("lastName", lastName);
+            request.setAttribute("pwd", pwd);
+            request.setAttribute("confirmPwd", confirmPwd);
+            
+            request.setAttribute("success", validation);
+            request.setAttribute("pageTitle", "Account created");
+            request.getRequestDispatcher("/WEB-INF/pages/dashBoard.jsp").forward(request, response);
+        }
     }
 
     /**
