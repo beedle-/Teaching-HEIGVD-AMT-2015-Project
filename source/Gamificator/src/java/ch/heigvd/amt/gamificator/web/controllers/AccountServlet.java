@@ -75,7 +75,8 @@ public class AccountServlet extends HttpServlet
             String lastName = request.getParameter("lastName");
             String pwd = request.getParameter("pwd");
             String confirmPwd = request.getParameter("confirmPwd");
-            String validation = "You have succesfully created an account with this data";
+            String message;
+            message = "You have succesfully created an account with this data";
             
             
             request.setAttribute("email", email);
@@ -84,7 +85,18 @@ public class AccountServlet extends HttpServlet
             request.setAttribute("pwd", pwd);
             request.setAttribute("confirmPwd", confirmPwd);
             
-            request.setAttribute("success", validation);
+            String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$";
+            
+            if(!pwd.equals(confirmPwd))
+            {
+                message = "Password confirmation doesn't match";
+            }
+            else if(!pwd.matches(pattern))
+            {
+                message = "Password must contains at least 8 character, one lower case, one uppercase and one digit";
+            }
+            
+            request.setAttribute("success", message);
             request.setAttribute("pageTitle", "Account created");
             request.getRequestDispatcher("/WEB-INF/pages/dashBoard.jsp").forward(request, response);
         }
