@@ -1,4 +1,4 @@
-package ch.heigvd.amt.gamificator.model.services.dao;
+package ch.heigvd.amt.gamificator.services.dao;
 
 import ch.heigvd.amt.gamificator.model.entities.AbstractGenericEntity;
 import java.util.List;
