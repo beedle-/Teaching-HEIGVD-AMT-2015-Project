@@ -6,7 +6,6 @@
 package ch.heigvd.amt.gamificator.model.entities;
 
 
-import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +23,15 @@ public class Account extends AbstractGenericEntity
     private String password;
 
     public Account(){}   
-    
+
+    public Account(String email, String firstName, String lastName, String password)
+    {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+    }
+        
     public String getEmail()
     {
         return email;

@@ -1,12 +1,15 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package ch.heigvd.amt.gamificator.web.controllers;
 
+import ch.heigvd.amt.gamificator.model.entities.Account;
+import ch.heigvd.amt.gamificator.services.dao.AccountDAOLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +21,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AccountServlet extends HttpServlet
 {
-
+    @EJB
+    AccountDAOLocal accountDAO;
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,7 +45,6 @@ public class AccountServlet extends HttpServlet
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -73,27 +78,30 @@ public class AccountServlet extends HttpServlet
             String email = request.getParameter("email");
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
-            String pwd = request.getParameter("pwd");
+            String password = request.getParameter("password");
             String confirmPwd = request.getParameter("confirmPwd");
-            String message;
-            message = "You have succesfully created an account with this data";
-            
+            String message;            
             
             request.setAttribute("email", email);
             request.setAttribute("firstName", firstName);
             request.setAttribute("lastName", lastName);
-            request.setAttribute("pwd", pwd);
+            request.setAttribute("password", password);
             request.setAttribute("confirmPwd", confirmPwd);
             
             String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$";
             
-            if(!pwd.equals(confirmPwd))
+            if(!password.equals(confirmPwd))
             {
                 message = "Password confirmation doesn't match";
             }
-            else if(!pwd.matches(pattern))
+            else if(!password.matches(pattern))
             {
                 message = "Password must contains at least 8 character, one lower case, one uppercase and one digit";
+            }
+            else
+            {
+                accountDAO.create(new Account(email, firstName, lastName, password));
+                message = "You have succesfully created an account with this data";
             }
             
             request.setAttribute("success", message);
@@ -111,6 +119,6 @@ public class AccountServlet extends HttpServlet
     public String getServletInfo()
     {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

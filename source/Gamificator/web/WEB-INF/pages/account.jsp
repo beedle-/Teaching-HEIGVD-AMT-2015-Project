@@ -21,8 +21,8 @@
         <input type="text" class="form-control" name="lastName" required>
     </div>
     <div class="form-group">
-        <label for="pwd">Password:</label>
-        <input type="password" class="form-control" name="pwd" required>
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" name="password" required>
     </div>
     <div class="form-group">
         <label for="confirmPwd">Confirm Password:</label>
