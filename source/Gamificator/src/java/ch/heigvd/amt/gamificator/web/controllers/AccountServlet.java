@@ -100,8 +100,18 @@ public class AccountServlet extends HttpServlet
             }
             else
             {
-                accountDAO.create(new Account(email, firstName, lastName, password));
-                message = "You have succesfully created an account with this data";
+                //Look if the account already exist
+                Account a = accountDAO.findByEmail(email);
+                
+                if(a == null)
+                {
+                    accountDAO.create(new Account(email, firstName, lastName, password));
+                    message = "Congratulations " + firstName + " " + lastName + ". You have succesfully created an account.";
+                }
+                else
+                {
+                    message = "Sorry, there is already an account linked to this email";
+                }
             }
             
             request.setAttribute("success", message);

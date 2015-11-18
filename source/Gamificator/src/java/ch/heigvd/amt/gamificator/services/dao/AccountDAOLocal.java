@@ -11,4 +11,5 @@ import javax.ejb.Local;
 @Local
 public interface AccountDAOLocal extends IGenericDAO<Account>
 {
+    Account findByEmail(String email);
 }

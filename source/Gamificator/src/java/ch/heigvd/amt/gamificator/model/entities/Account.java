@@ -10,8 +10,14 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries
+({
+    @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
+})
 public class Account extends AbstractGenericEntity
 {
     @ManyToMany(fetch = FetchType.EAGER)   
