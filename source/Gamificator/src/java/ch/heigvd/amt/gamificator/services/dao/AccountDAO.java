@@ -26,4 +26,19 @@ public class AccountDAO extends GenericDAO<Account> implements AccountDAOLocal
         }
         return result;       
     }
+
+    public Account verifyLogin(String email, String password)
+    {
+        Account result = null;
+
+        try
+        {
+            result = (Account) em.createNamedQuery("Account.verifyLogin").setParameter("email", email).setParameter("password", password).getSingleResult();
+        } 
+        catch (NoResultException e)
+        {
+            return null;
+        }
+        return result;     
+    }
 }

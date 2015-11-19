@@ -5,9 +5,15 @@
 
 <%@include file="includes/header.jsp" %>
 
+<c:if test="${not empty success}">
+    <div class="alert alert-info">
+      ${requestScope.success}
+    </div>
+</c:if>
+
 <h2>Create a new account</h2>
 
-<form method="POST" action="accountManagement">
+<form method="POST" action="account">
    <div class="form-group">
         <label for="email"> Email address:</label>
         <input type="email" class="form-control" name="email" required>

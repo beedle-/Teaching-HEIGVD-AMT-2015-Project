@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,17 +14,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Bastien Rouiller
  */
-public class AccountServlet extends HttpServlet
+public class LoginServlet extends HttpServlet
 {
+
     @EJB
     AccountDAOLocal accountDAO;
-    
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,8 +41,16 @@ public class AccountServlet extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter())
         {
-            request.setAttribute("pageTitle", "Registration");
-            request.getRequestDispatcher("/WEB-INF/pages/account.jsp").forward(request, response);
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet LoginServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -57,7 +66,12 @@ public class AccountServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        processRequest(request, response);
+        HttpSession session = request.getSession(false);
+        
+        if(session != null)
+            session.invalidate();
+        
+        request.getRequestDispatcher("/index.jsp").forward(request,response);
     }
 
     /**
@@ -76,56 +90,33 @@ public class AccountServlet extends HttpServlet
         try (PrintWriter out = response.getWriter())
         {
             String email = request.getParameter("email");
-            String firstName = request.getParameter("firstName");
-            String lastName = request.getParameter("lastName");
             String password = request.getParameter("password");
-            String confirmPwd = request.getParameter("confirmPwd");
-            String message;     
+            String message;
             boolean success = false;
-            
-            /*
-            request.setAttribute("email", email);
-            request.setAttribute("firstName", firstName);
-            request.setAttribute("lastName", lastName);
-            request.setAttribute("password", password);
-            request.setAttribute("confirmPwd", confirmPwd);
-            */
-            
-            String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$";
-            
-            if(!password.equals(confirmPwd))
+
+            //Look if the login information are correct
+            Account a = accountDAO.verifyLogin(email, password);
+
+            if (a != null)
             {
-                message = "Password confirmation doesn't match";
-            }
-            else if(!password.matches(pattern))
+                message = "sucessfully connected";
+                success = true;
+            } else
             {
-                message = "Password must contains at least 8 character, one lower case, one uppercase and one digit";
+                message = "Wrong email or password. Please try again!";
             }
-            else
-            {
-                //Look if the account already exist
-                Account a = accountDAO.findByEmail(email);
-                
-                if(a == null)
-                {
-                    accountDAO.create(new Account(email, firstName, lastName, password));
-                    message = "Congratulations " + firstName + " " + lastName 
-                            + ". You have succesfully created an account. You can now login.";
-                    success = true;
-                }
-                else
-                {
-                    message = "Sorry, there is already an account linked to this email";
-                }
-            }
-            
+
             request.setAttribute("success", message);
-            request.setAttribute("pageTitle", "Gamificator");
-            
-            if(success)
+            request.setAttribute("pageTitle", "Account created");
+
+            if (success)
+            {
+                request.getSession().setAttribute("connected", email);
+                request.getRequestDispatcher("/WEB-INF/pages/dashboard.jsp").forward(request, response);
+            } else
+            {
                 request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
-            else
-                request.getRequestDispatcher("/WEB-INF/pages/account.jsp").forward(request, response);
+            }
         }
     }
 

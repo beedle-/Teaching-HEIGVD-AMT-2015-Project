@@ -16,7 +16,8 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries
 ({
-    @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
+    @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email"),
+    @NamedQuery(name = "Account.verifyLogin", query = "SELECT a FROM Account a WHERE a.email = :email AND a.password = :password")
 })
 public class Account extends AbstractGenericEntity
 {
