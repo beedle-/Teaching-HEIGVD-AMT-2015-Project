@@ -5,8 +5,11 @@
  */
 package ch.heigvd.amt.gamificator.web.controllers;
 
+import ch.heigvd.amt.gamificator.services.dao.AccountDAOLocal;
+import ch.heigvd.amt.gamificator.services.dao.ApplicationDAOLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +22,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class HomeServlet extends HttpServlet
 {
+    @EJB
+    AccountDAOLocal accountDAO;
+    
+    @EJB
+    ApplicationDAOLocal applicationDAO;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,6 +44,8 @@ public class HomeServlet extends HttpServlet
         try (PrintWriter out = response.getWriter())
         {
             request.setAttribute("pageTitle", "Welcome");
+            request.setAttribute("nbOfAccounts",accountDAO.count());
+            request.setAttribute("nbOfApplications", applicationDAO.count());
             request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
         }
     }

@@ -10,11 +10,6 @@
 </div>
 
 <h2>${requestScope.validation}</h2>
-<h2>${requestScope.firstName}</h2>
-<h2>${requestScope.lastName}</h2>
-<h2>${requestScope.email}</h2>
-<h2>${requestScope.password}</h2>
-<h2>${requestScope.confirmPwd}</h2>
 
 
 

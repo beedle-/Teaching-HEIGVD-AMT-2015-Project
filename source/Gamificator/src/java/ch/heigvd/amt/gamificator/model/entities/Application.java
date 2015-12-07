@@ -8,11 +8,16 @@ package ch.heigvd.amt.gamificator.model.entities;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
+@XmlRootElement
 public class Application extends AbstractGenericEntity
 {
     @ManyToOne
@@ -89,6 +94,7 @@ public class Application extends AbstractGenericEntity
         this.active = active;
     }
     
+    @XmlTransient
     public List<EndUser> getEndUsers() 
     {
         return endUsers;

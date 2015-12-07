@@ -11,11 +11,8 @@
     </div>
 </c:if>
 <h2>Welcome to Gamificator!</h2>
+<h4>${requestScope.nbOfAccounts} accounts created </h4>
+<h4>${requestScope.nbOfApplications} applications managed </h4>
 <h2>${requestScope.validation}</h2>
-<h2>${requestScope.firstName}</h2>
-<h2>${requestScope.lastName}</h2>
-<h2>${requestScope.email}</h2>
-<h2>${requestScope.password}</h2>
-<h2>${requestScope.confirmPwd}</h2>
 
 <%@include file="includes/footer.jsp" %>

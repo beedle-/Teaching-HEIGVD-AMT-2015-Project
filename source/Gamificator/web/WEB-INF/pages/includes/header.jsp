@@ -30,10 +30,11 @@
                         <a class="navbar-brand" href="home">Gamificator</a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">    
-                            <li><a href="account">Create a new account</a></li>
-                        </ul>
+
                         <c:if test="${empty connected}">
+                            <ul class="nav navbar-nav">    
+                                <li><a href="account">Create a new account</a></li>
+                            </ul>
                             <form class="navbar-form navbar-right" method="POST" action="login">
                                 <div class="form-group">
                                     <input type="email" placeholder="email" name="email" class="form-control" required>
@@ -43,6 +44,9 @@
                             </form>
                         </c:if>
                         <c:if test="${not empty connected}">
+                            <ul class="nav navbar-nav">    
+                                <li><a href="account">Your account</a></li>
+                            </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="login">Logout</a></li>
                             </ul>  

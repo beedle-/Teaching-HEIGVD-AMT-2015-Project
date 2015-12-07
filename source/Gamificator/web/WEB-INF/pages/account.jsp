@@ -11,20 +11,22 @@
     </div>
 </c:if>
 
-<h2>Create a new account</h2>
+<h2>${requestScope.pageTitle}</h2>
 
 <form method="POST" action="account">
    <div class="form-group">
         <label for="email"> Email address:</label>
-        <input type="email" class="form-control" name="email" required>
+        <input type="email" value="${requestScope.email}" class="form-control" name="email"  
+        <c:if test="${empty connected}">required</c:if>
+        <c:if test="${not empty connected}">readonly</c:if>>
     </div>
     <div class="form-group">
         <label for="firstName">First Name:</label>
-        <input type="text" class="form-control" name="firstName" required>
+        <input type="text" value="${requestScope.firstName}" class="form-control" name="firstName" required>
     </div>
     <div class="form-group">
         <label for="lastName">Last Name:</label>
-        <input type="text" class="form-control" name="lastName" required>
+        <input type="text" value="${requestScope.lastName}" class="form-control" name="lastName" required>
     </div>
     <div class="form-group">
         <label for="password">Password:</label>
@@ -34,7 +36,8 @@
         <label for="confirmPwd">Confirm Password:</label>
         <input type="password" class="form-control" name="confirmPwd" required>
     </div>
-    <button type="submit" class="btn btn-default">Create</button>
+        <c:if test="${empty connected}"><button type="submit" class="btn btn-default">Create</button></c:if>
+        <c:if test="${not empty connected}"><button type="submit" class="btn btn-default">Edit</button></c:if>
 </form>
 
 <%@include file="includes/footer.jsp" %>

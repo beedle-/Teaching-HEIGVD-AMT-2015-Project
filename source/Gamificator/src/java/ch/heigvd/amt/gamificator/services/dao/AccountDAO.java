@@ -11,7 +11,6 @@ import javax.persistence.NoResultException;
 @Stateless
 public class AccountDAO extends GenericDAO<Account> implements AccountDAOLocal
 {
-
     public Account findByEmail(String email)
     {
         Account result = null;
@@ -41,4 +40,11 @@ public class AccountDAO extends GenericDAO<Account> implements AccountDAOLocal
         }
         return result;     
     }
+    
+    /*
+    public int countAccounts()
+    {
+        return((Number)em.createNamedQuery("Account.countAccounts").getSingleResult()).intValue();
+    }
+    */
 }

@@ -6,9 +6,11 @@
 package ch.heigvd.amt.gamificator.model.entities;
 
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
+@XmlRootElement
 public class Role extends AbstractGenericEntity
 {
     String role;

@@ -22,8 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AccountServlet extends HttpServlet
 {
     @EJB
-    AccountDAOLocal accountDAO;
-    
+    AccountDAOLocal accountDAO;   
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,8 +39,22 @@ public class AccountServlet extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter())
         {
-            request.setAttribute("pageTitle", "Registration");
-            request.getRequestDispatcher("/WEB-INF/pages/account.jsp").forward(request, response);
+            if(request.getSession().getAttribute("connected") == null)
+            {
+                request.setAttribute("pageTitle", "Registration");
+                request.getRequestDispatcher("/WEB-INF/pages/account.jsp").forward(request, response);
+            }
+            else
+            {
+                Account myAccount = accountDAO.findByEmail((String) request.getSession().getAttribute("connected"));
+
+                request.setAttribute("email", myAccount.getEmail());
+                request.setAttribute("firstName", myAccount.getFirstName());
+                request.setAttribute("lastName", myAccount.getLastName());
+
+                request.setAttribute("pageTitle", "Edit your account details");
+                request.getRequestDispatcher("/WEB-INF/pages/account.jsp").forward(request, response);
+            }
         }
     }
 
@@ -74,7 +87,7 @@ public class AccountServlet extends HttpServlet
     {
         response.setContentType("text/html");
         try (PrintWriter out = response.getWriter())
-        {
+        {            
             String email = request.getParameter("email");
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
@@ -82,6 +95,7 @@ public class AccountServlet extends HttpServlet
             String confirmPwd = request.getParameter("confirmPwd");
             String message;     
             boolean success = false;
+            boolean connected = request.getSession().getAttribute("connected") == null;
             
             /*
             request.setAttribute("email", email);
@@ -103,22 +117,31 @@ public class AccountServlet extends HttpServlet
             }
             else
             {
-                //Look if the account already exist
-                Account a = accountDAO.findByEmail(email);
-                
-                if(a == null)
+                if(connected)
                 {
-                    accountDAO.create(new Account(email, firstName, lastName, password));
-                    message = "Congratulations " + firstName + " " + lastName 
-                            + ". You have succesfully created an account. You can now login.";
-                    success = true;
+                    //Look if the account already exist
+                    Account a = accountDAO.findByEmail(email);
+
+                    if(a == null)
+                    {
+                        accountDAO.create(new Account(email, firstName, lastName, password));
+                        message = "Congratulations " + firstName + " " + lastName 
+                                + ". You have succesfully created an account. You can now login.";
+                        success = true;
+                    }
+                    else
+                    {
+                        message = "Sorry, there is already an account linked to this email";
+                    }
                 }
                 else
                 {
-                    message = "Sorry, there is already an account linked to this email";
+                    accountDAO.update(null);
+                    //update account
+                    message = "You information have been updated.";
                 }
             }
-            
+           
             request.setAttribute("success", message);
             request.setAttribute("pageTitle", "Gamificator");
             
