@@ -5,7 +5,9 @@
 
 package ch.heigvd.amt.gamificator.rest.resources;
 
+import ch.heigvd.amt.gamificator.model.entities.Application;
 import ch.heigvd.amt.gamificator.model.entities.EndUser; 
+import ch.heigvd.amt.gamificator.services.dao.ApplicationDAOLocal;
 import ch.heigvd.amt.gamificator.services.dao.EndUserDAOLocal;
 import java.util.Date;
 import java.util.List;
@@ -23,11 +25,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 @Stateless
-@Path("/endUsers")
+@Path("/application/{applicationId}/endUsers)")
 public class EndUserResource extends AbstractFacade<EndUser> 
 {
     @EJB
     EndUserDAOLocal endUserDAO;   
+    
+    @EJB
+    ApplicationDAOLocal applicationDAO;
     
     @PersistenceContext(unitName = "Persistence")
     private EntityManager em;
@@ -38,19 +43,12 @@ public class EndUserResource extends AbstractFacade<EndUser>
     }
 
     @POST
-    @Override
     @Consumes("application/json")
-    public void create(EndUser entity)
+    public void create(EndUser entity, @PathParam("applicationId") long applicationId)
     {
-        super.create(entity);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Consumes("application/json")
-    public void edit(@PathParam("id") Long id, EndUser entity)
-    {
-        super.edit(entity);
+        Application app = applicationDAO.findById(applicationId);
+        app.addEndUser(entity);
+        //super.create(entity);
     }
 
     @DELETE
@@ -60,6 +58,15 @@ public class EndUserResource extends AbstractFacade<EndUser>
         super.remove(super.find(id));
     }
 
+    /*
+    @PUT
+    @Path("{id}")
+    @Consumes("application/json")
+    public void edit(@PathParam("id") Long id, EndUser entity)
+    {
+        super.edit(entity);
+    }
+    
     @GET
     @Path("{id}")
     @Produces("application/json")
@@ -67,7 +74,7 @@ public class EndUserResource extends AbstractFacade<EndUser>
     {
         return super.find(id);
     }
-
+*/
     @GET
     @Override
     @Produces("application/json")
@@ -76,7 +83,7 @@ public class EndUserResource extends AbstractFacade<EndUser>
         //return super.findAll();
         return endUserDAO.findAll();
     }
-
+/*
     @GET
     @Path("count")
     @Produces("text/plain")
@@ -84,7 +91,8 @@ public class EndUserResource extends AbstractFacade<EndUser>
     {
         return String.valueOf(super.count());
     }
-
+    */
+    
     @Override
     protected EntityManager getEntityManager()
     {
