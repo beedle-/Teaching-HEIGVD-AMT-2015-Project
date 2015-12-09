@@ -5,12 +5,17 @@
 package ch.heigvd.amt.gamificator.services.dao;
 
 import ch.heigvd.amt.gamificator.model.entities.Account;
+import ch.heigvd.amt.gamificator.model.entities.Role;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 
 @Stateless
 public class AccountDAO extends GenericDAO<Account> implements AccountDAOLocal
 {
+    @EJB
+    RoleDAOLocal roleDAO;
+    
     public Account findByEmail(String email)
     {
         Account result = null;
@@ -47,4 +52,12 @@ public class AccountDAO extends GenericDAO<Account> implements AccountDAOLocal
         return((Number)em.createNamedQuery("Account.countAccounts").getSingleResult()).intValue();
     }
     */
+
+    @Override
+    public void assignRole(String email, String role)
+    {
+        Account account = findByEmail(email);
+        Role r = roleDAO.findByNameOrCreateIfNotFound(role);
+        account.addRole(r);
+    }
 }

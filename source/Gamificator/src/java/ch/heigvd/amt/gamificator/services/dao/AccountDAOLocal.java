@@ -13,5 +13,6 @@ public interface AccountDAOLocal extends IGenericDAO<Account>
 {
     Account findByEmail(String email);
     Account verifyLogin(String email, String password);
+    void assignRole(String email, String role);
     //int countAccounts();
 }

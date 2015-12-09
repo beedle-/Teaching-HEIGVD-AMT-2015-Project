@@ -31,14 +31,15 @@ public class RoleResource extends AbstractFacade<Role>
         super(Role.class);
     }
 
+    /*
     @POST
-    @Override
     @Consumes("application/json")
     public void create(Role entity)
     {
         super.create(entity);
     }
-
+*/
+    
     @PUT
     @Path("{id}")
     @Consumes("application/json")

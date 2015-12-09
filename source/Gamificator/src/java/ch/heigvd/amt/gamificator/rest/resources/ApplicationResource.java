@@ -6,7 +6,9 @@
 package ch.heigvd.amt.gamificator.rest.resources;
 
 import ch.heigvd.amt.gamificator.model.entities.Application; 
+import ch.heigvd.amt.gamificator.services.dao.ApplicationDAOLocal;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,6 +25,9 @@ import javax.ws.rs.Produces;
 @Path("ch.heigvd.amt.gamificator.model.entities.application")
 public class ApplicationResource extends AbstractFacade<Application> 
 {
+    @EJB 
+    ApplicationDAOLocal applicationDAO;
+    
     @PersistenceContext(unitName = "Persistence")
     private EntityManager em;
 
@@ -32,14 +37,14 @@ public class ApplicationResource extends AbstractFacade<Application>
     }
 
     @POST
-    @Override
     @Consumes(
     {
         "application/xml", "application/json"
     })
     public void create(Application entity)
     {
-        super.create(entity);
+        applicationDAO.create(entity);
+        //super.create(entity);
     }
 
     @PUT

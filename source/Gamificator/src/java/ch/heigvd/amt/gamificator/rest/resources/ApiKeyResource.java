@@ -31,8 +31,8 @@ public class ApiKeyResource extends AbstractFacade<ApiKey>
         super(ApiKey.class);
     }
 
+    /*
     @POST
-    @Override
     @Consumes(
     {
         "application/xml", "application/json"
@@ -41,6 +41,7 @@ public class ApiKeyResource extends AbstractFacade<ApiKey>
     {
         super.create(entity);
     }
+    */
 
     @PUT
     @Path("{id}")

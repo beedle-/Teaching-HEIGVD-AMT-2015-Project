@@ -2,10 +2,11 @@
  *
  * @author Bastien Rouiller
  */
-
 package ch.heigvd.amt.gamificator.rest.resources;
 
-import ch.heigvd.amt.gamificator.model.entities.Account; 
+import ch.heigvd.amt.gamificator.model.entities.Account;
+import ch.heigvd.amt.gamificator.rest.dto.AccountCreationDTO;
+import ch.heigvd.amt.gamificator.services.dao.AccountDAO;
 import ch.heigvd.amt.gamificator.services.dao.AccountDAOLocal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,13 +24,14 @@ import javax.ws.rs.Produces;
 
 @Stateless
 @Path("/accounts")
-public class AccountResource extends AbstractFacade<Account> 
+public class AccountResource extends AbstractFacade<Account>
 {
+
     @PersistenceContext(unitName = "Persistence")
     private EntityManager em;
-    
+
     @EJB
-    AccountDAOLocal accountDAO;   
+    AccountDAOLocal accountDAO;
 
     public AccountResource()
     {
@@ -37,11 +39,27 @@ public class AccountResource extends AbstractFacade<Account>
     }
 
     @POST
-    @Override
     @Consumes("application/json")
-    public void create(Account entity)
+    public void create(AccountCreationDTO dto)
     {
-        accountDAO.create(entity);
+        Account account = new Account();
+
+        account.setEmail(dto.getEmail());
+        account.setFirstName(dto.getFirstName());
+        account.setLastName(dto.getLastName());
+        account.setPassword(dto.getPassword());
+
+        accountDAO.create(account);
+        
+        /*
+        String[] roles = dto.getRoles();
+        if(roles != null)
+            for (String role : roles)
+            {
+                accountDAO.assignRole(account.getEmail(), role);
+            }
+*/
+
         //super.create(entity);
     }
 
@@ -81,7 +99,10 @@ public class AccountResource extends AbstractFacade<Account>
     @Produces("application/json")
     public List<Account> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to)
     {
-        return super.findRange(new int[]{from, to});
+        return super.findRange(new int[]
+        {
+            from, to
+        });
     }
 
     @GET
