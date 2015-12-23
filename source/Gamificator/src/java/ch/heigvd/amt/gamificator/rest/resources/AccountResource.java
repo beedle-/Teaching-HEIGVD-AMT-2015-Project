@@ -42,6 +42,7 @@ public class AccountResource extends AbstractFacade<Account>
     @Consumes("application/json")
     public void create(AccountCreationDTO dto)
     {
+
         Account account = new Account();
 
         account.setEmail(dto.getEmail());
@@ -50,17 +51,16 @@ public class AccountResource extends AbstractFacade<Account>
         account.setPassword(dto.getPassword());
 
         accountDAO.create(account);
-        
-        /*
-        String[] roles = dto.getRoles();
-        if(roles != null)
-            for (String role : roles)
-            {
-                accountDAO.assignRole(account.getEmail(), role);
-            }
-*/
 
-        //super.create(entity);
+        /*
+         String[] roles = dto.getRoles();
+         if(roles != null)
+         for (String role : roles)
+         {
+         accountDAO.assignRole(account.getEmail(), role);
+         }
+         */
+        //   super.create(entity);
     }
 
     @PUT

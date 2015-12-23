@@ -6,6 +6,10 @@ Welcome to the home of the AMT Project. This is where you will find information 
 
 Bastien Rouiller
 
+## Documentation
+
+![Schéma entité](schema.png)
+
 ## How to use this repo
 
 ### What should we do with this repo?

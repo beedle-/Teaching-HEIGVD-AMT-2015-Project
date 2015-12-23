@@ -4,14 +4,19 @@
  */
 package ch.heigvd.amt.gamificator.rest.dto;
 
-public class AccountCreationDTO
+import ch.heigvd.amt.gamificator.model.entities.Role;
+import java.io.Serializable;
+import java.util.List;
+
+public class AccountCreationDTO implements Serializable
 {
     //private String[] roles;
+    private List<Role> roles;
+    public String email;
+    public String firstName;
+    public String lastName;
+    public String password;
 
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String password;
 /*
    public String[] getRoles()
    {
