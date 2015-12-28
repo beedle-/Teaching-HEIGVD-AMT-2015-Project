@@ -4,33 +4,50 @@
  */
 package ch.heigvd.amt.gamificator.rest.dto;
 
-import ch.heigvd.amt.gamificator.model.entities.Role;
 import java.io.Serializable;
-import java.util.List;
 
 public class AccountCreationDTO implements Serializable
 {
-    //private String[] roles;
-    private List<Role> roles;
-    public String email;
-    public String firstName;
-    public String lastName;
-    public String password;
 
-/*
-   public String[] getRoles()
-   {
+    private String[] roles;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String password;
+
+    public String[] getRoles()
+    {
         return roles;
-   }
-*/
+    }
+
+    public void setRoles(String[] roles)
+    {
+        this.roles = roles;
+    }
+
     public String getEmail()
     {
         return email;
     }
 
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
     public String getFirstName()
     {
         return firstName;
+    }
+
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
     }
 
     public String getLastName()
@@ -41,5 +58,10 @@ public class AccountCreationDTO implements Serializable
     public String getPassword()
     {
         return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 }

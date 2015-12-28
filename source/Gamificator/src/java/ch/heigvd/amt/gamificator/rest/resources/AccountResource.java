@@ -6,7 +6,6 @@ package ch.heigvd.amt.gamificator.rest.resources;
 
 import ch.heigvd.amt.gamificator.model.entities.Account;
 import ch.heigvd.amt.gamificator.rest.dto.AccountCreationDTO;
-import ch.heigvd.amt.gamificator.services.dao.AccountDAO;
 import ch.heigvd.amt.gamificator.services.dao.AccountDAOLocal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -52,14 +51,15 @@ public class AccountResource extends AbstractFacade<Account>
 
         accountDAO.create(account);
 
-        /*
-         String[] roles = dto.getRoles();
-         if(roles != null)
-         for (String role : roles)
-         {
-         accountDAO.assignRole(account.getEmail(), role);
-         }
-         */
+        String[] roles = dto.getRoles();
+        if (roles != null)
+        {
+            for (String role : roles)
+            {
+                accountDAO.assignRole(account.getEmail(), role);
+            }
+        }
+
         //   super.create(entity);
     }
 
