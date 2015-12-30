@@ -6,6 +6,8 @@
 package ch.heigvd.amt.gamificator.rest.resources;
 
 import ch.heigvd.amt.gamificator.model.entities.Application; 
+import ch.heigvd.amt.gamificator.rest.dto.ApplicationCreationDTO;
+import ch.heigvd.amt.gamificator.services.dao.ApplicationDAO;
 import ch.heigvd.amt.gamificator.services.dao.ApplicationDAOLocal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -22,7 +24,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 @Stateless
-@Path("ch.heigvd.amt.gamificator.model.entities.application")
+@Path("/applications")
 public class ApplicationResource extends AbstractFacade<Application> 
 {
     @EJB 
@@ -37,22 +39,21 @@ public class ApplicationResource extends AbstractFacade<Application>
     }
 
     @POST
-    @Consumes(
+    @Consumes("application/json")
+    public void create(ApplicationCreationDTO dto)
     {
-        "application/xml", "application/json"
-    })
-    public void create(Application entity)
-    {
-        applicationDAO.create(entity);
-        //super.create(entity);
+        Application application = new Application();
+        
+        application.setName(dto.getName());
+        application.setDescription(dto.getDescription());
+       
+        applicationDAO.assignAccount(dto.getEmailAccount(), application);
+        applicationDAO.create(application);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes(
-    {
-        "application/xml", "application/json"
-    })
+    @Consumes("application/json")
     public void edit(@PathParam("id") Long id, Application entity)
     {
         super.edit(entity);
@@ -67,10 +68,7 @@ public class ApplicationResource extends AbstractFacade<Application>
 
     @GET
     @Path("{id}")
-    @Produces(
-    {
-        "application/xml", "application/json"
-    })
+    @Produces("application/json")
     public Application find(@PathParam("id") Long id)
     {
         return super.find(id);
@@ -78,10 +76,7 @@ public class ApplicationResource extends AbstractFacade<Application>
 
     @GET
     @Override
-    @Produces(
-    {
-        "application/xml", "application/json"
-    })
+    @Produces("application/json")
     public List<Application> findAll()
     {
         return super.findAll();
@@ -89,10 +84,7 @@ public class ApplicationResource extends AbstractFacade<Application>
 
     @GET
     @Path("{from}/{to}")
-    @Produces(
-    {
-        "application/xml", "application/json"
-    })
+    @Produces("application/json")
     public List<Application> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to)
     {
         return super.findRange(new int[]{from, to});

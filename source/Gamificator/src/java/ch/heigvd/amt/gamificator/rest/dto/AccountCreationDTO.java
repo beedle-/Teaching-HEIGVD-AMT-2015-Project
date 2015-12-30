@@ -4,9 +4,7 @@
  */
 package ch.heigvd.amt.gamificator.rest.dto;
 
-import java.io.Serializable;
-
-public class AccountCreationDTO implements Serializable
+public class AccountCreationDTO
 {
 
     private String[] permissions;
