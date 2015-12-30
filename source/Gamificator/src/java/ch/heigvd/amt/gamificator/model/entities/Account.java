@@ -2,10 +2,9 @@
  *
  * @author Bastien Rouiller
  */
-
 package ch.heigvd.amt.gamificator.model.entities;
 
-
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,23 +15,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@NamedQueries
-({
+@NamedQueries(
+{
     @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email"),
     @NamedQuery(name = "Account.verifyLogin", query = "SELECT a FROM Account a WHERE a.email = :email AND a.password = :password")
 })
 @XmlRootElement
 public class Account extends AbstractGenericEntity
 {
-    @ManyToMany(fetch = FetchType.EAGER)   
-    private List<Role> roles;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Permission> permissions;
 
     private String email;
     private String firstName;
     private String lastName;
     private String password;
 
-    public Account(){}   
+    public Account()
+    {
+        this.permissions = new ArrayList<Permission>();
+    }
 
     public Account(String email, String firstName, String lastName, String password)
     {
@@ -40,13 +43,14 @@ public class Account extends AbstractGenericEntity
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.permissions = new ArrayList<Permission>();
     }
-        
+
     public String getEmail()
     {
         return email;
     }
-    
+
     public void setEmail(String email)
     {
         this.email = email;
@@ -56,7 +60,7 @@ public class Account extends AbstractGenericEntity
     {
         return firstName;
     }
-    
+
     public void setFirstName(String firstName)
     {
         this.firstName = firstName;
@@ -66,7 +70,7 @@ public class Account extends AbstractGenericEntity
     {
         return lastName;
     }
-    
+
     public void setLastName(String lastName)
     {
         this.lastName = lastName;
@@ -83,13 +87,13 @@ public class Account extends AbstractGenericEntity
     }
 
     @XmlTransient
-    public List<Role> getRoles()
+    public List<Permission> getPermissions()
     {
-        return roles;
+        return permissions;
     }
-    
-    public void addRole(Role role)
+
+    public void addPermission(Permission permission)
     {
-        roles.add(role);
-    }  
+        permissions.add(permission);
+    }
 }

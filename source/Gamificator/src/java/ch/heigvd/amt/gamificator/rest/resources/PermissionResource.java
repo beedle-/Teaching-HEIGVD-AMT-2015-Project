@@ -5,7 +5,7 @@
 
 package ch.heigvd.amt.gamificator.rest.resources;
 
-import ch.heigvd.amt.gamificator.model.entities.Role; 
+import ch.heigvd.amt.gamificator.model.entities.Permission; 
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,21 +20,21 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 @Stateless
-@Path("/roles")
-public class RoleResource extends AbstractFacade<Role> 
+@Path("/permissions")
+public class PermissionResource extends AbstractFacade<Permission> 
 {
     @PersistenceContext(unitName = "Persistence")
     private EntityManager em;
 
-    public RoleResource()
+    public PermissionResource()
     {
-        super(Role.class);
+        super(Permission.class);
     }
 
     /*
     @POST
     @Consumes("application/json")
-    public void create(Role entity)
+    public void create(Permission entity)
     {
         super.create(entity);
     }
@@ -43,7 +43,7 @@ public class RoleResource extends AbstractFacade<Role>
     @PUT
     @Path("{id}")
     @Consumes("application/json")
-    public void edit(@PathParam("id") Long id, Role entity)
+    public void edit(@PathParam("id") Long id, Permission entity)
     {
         super.edit(entity);
     }
@@ -58,7 +58,7 @@ public class RoleResource extends AbstractFacade<Role>
     @GET
     @Path("{id}")
     @Produces("application/json")
-    public Role find(@PathParam("id") Long id)
+    public Permission find(@PathParam("id") Long id)
     {
         return super.find(id);
     }
@@ -66,7 +66,7 @@ public class RoleResource extends AbstractFacade<Role>
     @GET
     @Override
     @Produces("application/json")
-    public List<Role> findAll()
+    public List<Permission> findAll()
     {
         return super.findAll();
     }
@@ -74,7 +74,7 @@ public class RoleResource extends AbstractFacade<Role>
     @GET
     @Path("{from}/{to}")
     @Produces("application/json")
-    public List<Role> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to)
+    public List<Permission> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to)
     {
         return super.findRange(new int[]{from, to});
     }

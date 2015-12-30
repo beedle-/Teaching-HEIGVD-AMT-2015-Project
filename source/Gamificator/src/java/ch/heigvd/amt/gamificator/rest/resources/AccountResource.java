@@ -51,12 +51,12 @@ public class AccountResource extends AbstractFacade<Account>
 
         accountDAO.create(account);
 
-        String[] roles = dto.getRoles();
-        if (roles != null)
+        String[] permissions = dto.getPermissions();
+        if (permissions != null)
         {
-            for (String role : roles)
+            for (String permission : permissions)
             {
-                accountDAO.assignRole(account.getEmail(), role);
+                accountDAO.assignPermission(account.getEmail(), permission);
             }
         }
 

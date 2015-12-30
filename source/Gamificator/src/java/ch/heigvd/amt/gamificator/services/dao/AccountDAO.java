@@ -5,7 +5,7 @@
 package ch.heigvd.amt.gamificator.services.dao;
 
 import ch.heigvd.amt.gamificator.model.entities.Account;
-import ch.heigvd.amt.gamificator.model.entities.Role;
+import ch.heigvd.amt.gamificator.model.entities.Permission;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
@@ -14,7 +14,7 @@ import javax.persistence.NoResultException;
 public class AccountDAO extends GenericDAO<Account> implements AccountDAOLocal
 {
     @EJB
-    RoleDAOLocal roleDAO;
+    PermissionDAOLocal permissionDAO;
     
     public Account findByEmail(String email)
     {
@@ -54,10 +54,10 @@ public class AccountDAO extends GenericDAO<Account> implements AccountDAOLocal
     */
 
     @Override
-    public void assignRole(String email, String role)
+    public void assignPermission(String email, String permission)
     {
         Account account = findByEmail(email);
-        Role r = roleDAO.findByNameOrCreateIfNotFound(role);
-        account.addRole(r);
+        Permission p = permissionDAO.findByNameOrCreateIfNotFound(permission);
+        account.addPermission(p);
     }
 }

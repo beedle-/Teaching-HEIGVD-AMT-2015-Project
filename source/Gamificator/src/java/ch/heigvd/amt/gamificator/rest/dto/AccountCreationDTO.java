@@ -9,20 +9,20 @@ import java.io.Serializable;
 public class AccountCreationDTO implements Serializable
 {
 
-    private String[] roles;
+    private String[] permissions;
     private String email;
     private String firstName;
     private String lastName;
     private String password;
 
-    public String[] getRoles()
+    public String[] getPermissions()
     {
-        return roles;
+        return permissions;
     }
 
-    public void setRoles(String[] roles)
+    public void setPermissions(String[] permissions)
     {
-        this.roles = roles;
+        this.permissions = permissions;
     }
 
     public String getEmail()

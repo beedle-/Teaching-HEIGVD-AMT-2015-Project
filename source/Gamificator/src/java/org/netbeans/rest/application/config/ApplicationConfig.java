@@ -32,7 +32,7 @@ public class ApplicationConfig extends Application
         resources.add(ch.heigvd.amt.gamificator.rest.resources.ApiKeyResource.class);
         resources.add(ch.heigvd.amt.gamificator.rest.resources.ApplicationResource.class);
         resources.add(ch.heigvd.amt.gamificator.rest.resources.EndUserResource.class);
-        resources.add(ch.heigvd.amt.gamificator.rest.resources.RoleResource.class);
+        resources.add(ch.heigvd.amt.gamificator.rest.resources.PermissionResource.class);
         resources.add(org.netbeans.rest.application.config.MyObjectMapperProvider.class);
     }
 
