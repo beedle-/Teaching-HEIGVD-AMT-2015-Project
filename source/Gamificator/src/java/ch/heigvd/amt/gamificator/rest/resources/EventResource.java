@@ -5,11 +5,8 @@
 
 package ch.heigvd.amt.gamificator.rest.resources;
 
-import ch.heigvd.amt.gamificator.model.entities.Application; 
-import ch.heigvd.amt.gamificator.rest.dto.ApplicationCreationDTO;
-import ch.heigvd.amt.gamificator.services.dao.ApplicationDAOLocal;
+import ch.heigvd.amt.gamificator.model.entities.Event; 
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,37 +20,28 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 @Stateless
-@Path("/applications")
-public class ApplicationResource extends AbstractFacade<Application> 
+@Path("/events")
+public class EventResource extends AbstractFacade<Event> 
 {
-    @EJB 
-    ApplicationDAOLocal applicationDAO;
-    
     @PersistenceContext(unitName = "Persistence")
     private EntityManager em;
 
-    public ApplicationResource()
+    public EventResource()
     {
-        super(Application.class);
+        super(Event.class);
     }
 
     @POST
     @Consumes("application/json")
-    public void create(ApplicationCreationDTO dto)
+    public void create(Event entity)
     {
-        Application application = new Application();
         
-        application.setName(dto.getName());
-        application.setDescription(dto.getDescription());
-       
-        applicationDAO.assignAccount(dto.getEmailAccount(), application);
-        applicationDAO.create(application);
     }
 
     @PUT
     @Path("{id}")
     @Consumes("application/json")
-    public void edit(@PathParam("id") Long id, Application entity)
+    public void edit(@PathParam("id") Long id, Event entity)
     {
         super.edit(entity);
     }
@@ -68,7 +56,7 @@ public class ApplicationResource extends AbstractFacade<Application>
     @GET
     @Path("{id}")
     @Produces("application/json")
-    public Application find(@PathParam("id") Long id)
+    public Event find(@PathParam("id") Long id)
     {
         return super.find(id);
     }
@@ -76,7 +64,7 @@ public class ApplicationResource extends AbstractFacade<Application>
     @GET
     @Override
     @Produces("application/json")
-    public List<Application> findAll()
+    public List<Event> findAll()
     {
         return super.findAll();
     }
@@ -84,7 +72,7 @@ public class ApplicationResource extends AbstractFacade<Application>
     @GET
     @Path("{from}/{to}")
     @Produces("application/json")
-    public List<Application> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to)
+    public List<Event> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to)
     {
         return super.findRange(new int[]{from, to});
     }
