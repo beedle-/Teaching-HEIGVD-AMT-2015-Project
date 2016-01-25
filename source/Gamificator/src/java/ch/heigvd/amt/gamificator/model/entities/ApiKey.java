@@ -15,7 +15,10 @@ public class ApiKey extends AbstractGenericEntity
 {    
     private String apiKey;
     
-    public ApiKey(){}
+    public ApiKey()
+    {
+        apiKey = Long.toHexString(Double.doubleToLongBits(Math.random()));
+    }
 
     public ApiKey(String apiKey)
     {

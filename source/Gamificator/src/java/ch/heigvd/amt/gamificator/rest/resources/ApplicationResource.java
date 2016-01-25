@@ -5,6 +5,7 @@
 
 package ch.heigvd.amt.gamificator.rest.resources;
 
+import ch.heigvd.amt.gamificator.model.entities.ApiKey;
 import ch.heigvd.amt.gamificator.model.entities.Application; 
 import ch.heigvd.amt.gamificator.rest.dto.ApplicationCreationDTO;
 import ch.heigvd.amt.gamificator.services.dao.ApplicationDAOLocal;
@@ -45,6 +46,9 @@ public class ApplicationResource extends AbstractFacade<Application>
         
         application.setName(dto.getName());
         application.setDescription(dto.getDescription());
+        ApiKey apiKey = new ApiKey();
+        em.persist(apiKey);
+        application.setApiKey(apiKey);
        
         applicationDAO.assignAccount(dto.getEmailAccount(), application);
         applicationDAO.create(application);

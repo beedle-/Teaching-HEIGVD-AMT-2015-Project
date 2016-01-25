@@ -40,10 +40,10 @@ public class EndUserResource extends AbstractFacade<EndUser>
     }
 
     @POST
-    @Path("/{applicationId}/endUsers")
-    public void create(@PathParam("applicationId") long applicationId)
+    @Path("/{apiKey}/endUsers")
+    public void create(@PathParam("apiKey") String apiKey)
     {
-        Application app = applicationDAO.findById(applicationId);
+        Application app = applicationDAO.findByApiKey(apiKey);
         EndUser endUser = new EndUser();
         em.persist(endUser);
         app.addEndUser(endUser);

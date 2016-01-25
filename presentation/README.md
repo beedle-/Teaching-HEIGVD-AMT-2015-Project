@@ -20,7 +20,7 @@ Via requêtes POST et l'API REST, il est possible de créer des applications ain
 ### Création de son propre système de gamification
 On peut désormais créer un système de gamification de manière dynamique, c'est-à-dire en définissant par soi-même les régles lié au systèmes de gamification via REST :
 * création des différents évenement pouvant survenir ainsi que leur valeur en points.
-* définition des règles débouchange sur l'obtention d'un trophée
+* définition des règles débouchant sur l'obtention d'un trophée
 
 ### Simulation d'actions faites par endUser et consultation des trophées et points
 Nous allons simuler différentes actions effectuées par un utilisateur au sein d'une application. Ensuite, à travers l'interface web, nous pourrons consulter la quantité de points obtenus ainsi que les trophées.

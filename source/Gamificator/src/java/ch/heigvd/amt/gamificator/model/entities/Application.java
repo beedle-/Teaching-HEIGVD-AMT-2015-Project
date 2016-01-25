@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,6 +19,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @XmlRootElement
+@NamedQueries(
+{
+    @NamedQuery(name = "Application.findByApiKey", query = "SELECT a FROM Application a INNER JOIN a.apiKey ak WHERE ak.apiKey = :apiKey")
+})
 public class Application extends AbstractGenericEntity
 {
 
@@ -113,7 +119,7 @@ public class Application extends AbstractGenericEntity
         endUsers.add(eu);
     }
     
-        public List<Event> getEvents()
+    public List<Event> getEvents()
     {
         return events;
     }

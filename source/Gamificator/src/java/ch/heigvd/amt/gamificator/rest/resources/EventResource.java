@@ -6,7 +6,11 @@
 package ch.heigvd.amt.gamificator.rest.resources;
 
 import ch.heigvd.amt.gamificator.model.entities.Event; 
+import ch.heigvd.amt.gamificator.rest.dto.EventCreationDTO;
+import ch.heigvd.amt.gamificator.services.dao.ApplicationDAOLocal;
+import ch.heigvd.amt.gamificator.services.dao.EventDAOLocal;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,9 +24,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 @Stateless
-@Path("/events")
+@Path("/applicationX")
 public class EventResource extends AbstractFacade<Event> 
 {
+    @EJB
+    EventDAOLocal eventDAO;
+    
+    @EJB 
+    ApplicationDAOLocal applicationDAO;
+    
     @PersistenceContext(unitName = "Persistence")
     private EntityManager em;
 
@@ -32,10 +42,18 @@ public class EventResource extends AbstractFacade<Event>
     }
 
     @POST
+    @Path("/{apiKey}/events")
     @Consumes("application/json")
-    public void create(Event entity)
+    public void create(@PathParam("apiKey") String apiKey, EventCreationDTO dto)
     {
+        Event event = new Event();
         
+        event.setName(dto.getName());
+        event.setDescription(dto.getDescription());
+        event.setScore(dto.getScore());
+       
+        applicationDAO.addEvent(event,applicationDAO.findByApiKey(apiKey));
+        eventDAO.create(event);        
     }
 
     @PUT
