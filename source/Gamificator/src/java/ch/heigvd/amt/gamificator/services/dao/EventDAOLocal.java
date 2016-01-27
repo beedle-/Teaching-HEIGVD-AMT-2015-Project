@@ -11,4 +11,5 @@ import javax.ejb.Local;
 @Local
 public interface EventDAOLocal extends IGenericDAO<Event>
 {
+    Event findByName(String apiKey, String eventName);
 }

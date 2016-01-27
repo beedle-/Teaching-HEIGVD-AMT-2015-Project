@@ -35,7 +35,7 @@ public class Application extends AbstractGenericEntity
     @OneToMany
     private List<EndUser> endUsers;
     
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany
     private List<Event> events;
 
     private String name;

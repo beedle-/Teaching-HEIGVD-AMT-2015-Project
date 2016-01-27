@@ -16,7 +16,7 @@ public class Trophy extends AbstractGenericEntity
     String name;
     String description;
     int occurenceEvent;
-        
+    
     public Trophy(){}
 
     public String getName()
@@ -39,7 +39,7 @@ public class Trophy extends AbstractGenericEntity
         this.description = description;
     }
 
-    public long getOccurenceEvent()
+    public int getOccurenceEvent()
     {
         return occurenceEvent;
     }
