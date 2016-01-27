@@ -9,6 +9,7 @@ import ch.heigvd.amt.gamificator.model.entities.Application;
 import ch.heigvd.amt.gamificator.model.entities.EndUser; 
 import ch.heigvd.amt.gamificator.services.dao.ApplicationDAOLocal;
 import ch.heigvd.amt.gamificator.services.dao.EndUserDAOLocal;
+import ch.heigvd.amt.gamificator.services.dao.EventDAOLocal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -22,7 +23,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 @Stateless
-@Path("/application")
+@Path("/application/{apiKey}")
 public class EndUserResource extends AbstractFacade<EndUser> 
 {
     @EJB
@@ -30,6 +31,9 @@ public class EndUserResource extends AbstractFacade<EndUser>
     
     @EJB
     ApplicationDAOLocal applicationDAO;
+    
+    @EJB
+    EventDAOLocal eventDAO;
     
     @PersistenceContext(unitName = "Persistence")
     private EntityManager em;
@@ -40,7 +44,15 @@ public class EndUserResource extends AbstractFacade<EndUser>
     }
 
     @POST
-    @Path("/{apiKey}/endUsers")
+    @Path("/endUser/{userIdentifier}/action/{eventName}")
+    public void newAction(@PathParam("apiKey") String apiKey, @PathParam("userIdentifier") String userIdentifier, @PathParam("eventName") String eventName)
+    {
+        EndUser eu = endUserDAO.findByIdentifier(apiKey, userIdentifier);
+        eu.addEvent(eventDAO.findByName(apiKey, eventName));
+    }
+    
+    @POST
+    @Path("/endUsers")
     public void create(@PathParam("apiKey") String apiKey)
     {
         Application app = applicationDAO.findByApiKey(apiKey);

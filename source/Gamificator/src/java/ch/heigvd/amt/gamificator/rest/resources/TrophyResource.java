@@ -5,10 +5,9 @@
 
 package ch.heigvd.amt.gamificator.rest.resources;
 
-import ch.heigvd.amt.gamificator.model.entities.Application;
+
 import ch.heigvd.amt.gamificator.model.entities.Event;
 import ch.heigvd.amt.gamificator.model.entities.Trophy; 
-import ch.heigvd.amt.gamificator.services.dao.ApplicationDAOLocal;
 import ch.heigvd.amt.gamificator.services.dao.EventDAOLocal;
 import java.util.List;
 import javax.ejb.EJB;

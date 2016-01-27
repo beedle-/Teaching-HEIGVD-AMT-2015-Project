@@ -24,7 +24,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 @Stateless
-@Path("/applicationX")
+@Path("/application/{apiKey}/events")
 public class EventResource extends AbstractFacade<Event> 
 {
     @EJB
@@ -42,7 +42,6 @@ public class EventResource extends AbstractFacade<Event>
     }
 
     @POST
-    @Path("/{apiKey}/events")
     @Consumes("application/json")
     public void create(@PathParam("apiKey") String apiKey, EventCreationDTO dto)
     {

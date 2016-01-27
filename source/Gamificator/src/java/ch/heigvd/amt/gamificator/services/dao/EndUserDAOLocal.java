@@ -11,4 +11,5 @@ import javax.ejb.Local;
 @Local
 public interface EndUserDAOLocal extends IGenericDAO<EndUser>
 {
+    public EndUser findByIdentifier(String apiKey, String userIdentifier);
 }
