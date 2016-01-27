@@ -16,6 +16,10 @@
         <servlet-name>ApplicationServlet</servlet-name>
         <servlet-class>ch.heigvd.amt.gamificator.web.controllers.ApplicationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EndUserServlet</servlet-name>
+        <servlet-class>ch.heigvd.amt.gamificator.web.controllers.EndUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>ApplicationServlet</servlet-name>
         <url-pattern>/application</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EndUserServlet</servlet-name>
+        <url-pattern>/endUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
