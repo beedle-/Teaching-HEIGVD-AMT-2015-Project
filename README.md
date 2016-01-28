@@ -20,6 +20,26 @@ One (and only one) person in every group should fork this repository. All group 
 
 From time to time, we will add content in the repo (update the README.md file, add directories and files, etc.). You will want to fetch these updates, following the standard "fetch upstream" technique. If you do not remember how it works (from the RES course), refer to this [documentation](https://help.github.com/articles/syncing-a-fork/). 
 
+## Demo
+
+### Account Creation
+![homepage](homepage.png
+
+![registration](registration.png)
+
+When password doesn't match :
+![password_missmatch](password_missmatch.png)
+
+![congrat_creation_compte](congrat_creation_compte.png)
+
+![succesfull_login](succesfull_login.png)
+
+### REST API testing - Application creation,EndUser, Event, Action, Trophy
+See live demo
+![rest_testing](rest_testing.png)
+
+### Watch End User's scoring and trophy awards
+![trophy](trophy.png)
 
 ## About the project
 
