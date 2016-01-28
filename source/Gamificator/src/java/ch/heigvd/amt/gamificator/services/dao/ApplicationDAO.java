@@ -7,6 +7,9 @@ package ch.heigvd.amt.gamificator.services.dao;
 
 import ch.heigvd.amt.gamificator.model.entities.Application;
 import ch.heigvd.amt.gamificator.model.entities.Event;
+import ch.heigvd.amt.gamificator.model.entities.Trophy;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
@@ -41,5 +44,22 @@ public class ApplicationDAO extends GenericDAO<Application> implements Applicati
     public void addEvent(Event event, Application application)
     {
        application.addEvent(event);
+    }
+
+    @Override
+    public List<Trophy> getTrophiesList(String apiKey)
+    {
+        List<Trophy> trophies = new ArrayList<Trophy>();
+        for(Event e : findByApiKey(apiKey).getEvents())
+        {
+            for(Trophy t : e.getTrophies())
+            {
+                if(!trophies.contains(t))
+                {
+                    trophies.add(t);
+                }
+            }
+        }
+        return trophies;
     }
 }

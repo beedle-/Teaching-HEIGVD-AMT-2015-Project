@@ -23,7 +23,6 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class Application extends AbstractGenericEntity
 {
-
     @ManyToOne
     private Account account;
 

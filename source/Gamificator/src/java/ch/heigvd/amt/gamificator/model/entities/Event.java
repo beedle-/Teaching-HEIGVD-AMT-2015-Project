@@ -12,6 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -64,7 +65,8 @@ public class Event extends AbstractGenericEntity
         this.score = score;
     }  
     
-    public List<Trophy> getEndUsers()
+    @XmlTransient
+    public List<Trophy> getTrophies()
     {
         return trophies;
     }

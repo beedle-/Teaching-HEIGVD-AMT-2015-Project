@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application
     private void addRestResourceClasses(Set<Class<?>> resources)
     {
         resources.add(ch.heigvd.amt.gamificator.rest.resources.AccountResource.class);
+        resources.add(ch.heigvd.amt.gamificator.rest.resources.ActionResource.class);
         resources.add(ch.heigvd.amt.gamificator.rest.resources.ApiKeyResource.class);
         resources.add(ch.heigvd.amt.gamificator.rest.resources.ApplicationResource.class);
         resources.add(ch.heigvd.amt.gamificator.rest.resources.EndUserResource.class);

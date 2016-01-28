@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,7 +24,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 @Stateless
-@Path("/application/{apiKey}")
+@Path("/application/{apiKey}/endUsers")
 public class EndUserResource extends AbstractFacade<EndUser> 
 {
     @EJB
@@ -44,15 +45,6 @@ public class EndUserResource extends AbstractFacade<EndUser>
     }
 
     @POST
-    @Path("/endUser/{userIdentifier}/action/{eventName}")
-    public void newAction(@PathParam("apiKey") String apiKey, @PathParam("userIdentifier") String userIdentifier, @PathParam("eventName") String eventName)
-    {
-        EndUser eu = endUserDAO.findByIdentifier(apiKey, userIdentifier);
-        eu.addEvent(eventDAO.findByName(apiKey, eventName));
-    }
-    
-    @POST
-    @Path("/endUsers")
     public void create(@PathParam("apiKey") String apiKey)
     {
         Application app = applicationDAO.findByApiKey(apiKey);

@@ -5,14 +5,14 @@
 
 package ch.heigvd.amt.gamificator.model.entities;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,15 +28,14 @@ public class EndUser extends AbstractGenericEntity
 {
     @Temporal(TemporalType.TIMESTAMP)
     Date creationDate;
-    
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Event> events;
-    
+       
     String userIdentifier;
+    
+    @OneToMany
+    private List<Action> actions;
     
     public EndUser()
     {
-        this.events = new ArrayList<Event>();
         creationDate = new Date();
         userIdentifier = Long.toHexString(Double.doubleToLongBits(Math.random()));
     }
@@ -46,14 +45,14 @@ public class EndUser extends AbstractGenericEntity
         return creationDate;
     }
         
-    public List<Event> getEvents()
+    public List<Action> getActions()
     {
-        return events;
+        return actions;
     }
 
-    public void addEvent(Event event)
+    public void addAction(Action action)
     {
-        events.add(event);
+        actions.add(action);
     }
     
     public String getUserIdentifier()

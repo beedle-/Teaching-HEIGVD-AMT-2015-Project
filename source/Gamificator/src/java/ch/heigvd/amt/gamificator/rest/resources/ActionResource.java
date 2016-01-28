@@ -5,9 +5,11 @@
 
 package ch.heigvd.amt.gamificator.rest.resources;
 
-
+import ch.heigvd.amt.gamificator.model.entities.Action; 
+import ch.heigvd.amt.gamificator.model.entities.EndUser;
 import ch.heigvd.amt.gamificator.model.entities.Event;
-import ch.heigvd.amt.gamificator.model.entities.Trophy; 
+import ch.heigvd.amt.gamificator.services.dao.ApplicationDAOLocal;
+import ch.heigvd.amt.gamificator.services.dao.EndUserDAOLocal;
 import ch.heigvd.amt.gamificator.services.dao.EventDAOLocal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -24,34 +26,40 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 @Stateless
-@Path("/application/{apiKey}/event/{eventName}/trophies")
-public class TrophyResource extends AbstractFacade<Trophy> 
-{    
+@Path("/application/{apiKey}/endUser/{userIdentifier}/action/{eventName}")
+public class ActionResource extends AbstractFacade<Action> 
+{
+    @EJB
+    EndUserDAOLocal endUserDAO;   
+    
     @EJB
     EventDAOLocal eventDAO;
     
     @PersistenceContext(unitName = "Persistence")
     private EntityManager em;
 
-    public TrophyResource()
+    public ActionResource()
     {
-        super(Trophy.class);
+        super(Action.class);
     }
 
     @POST
     @Consumes("application/json")
-    public void create(@PathParam("apiKey") String apiKey, @PathParam("eventName") String eventName, Trophy entity)
+    public void create(@PathParam("apiKey") String apiKey, @PathParam("userIdentifier") String userIdentifier, @PathParam("eventName") String eventName)
     {
-        em.persist(entity);
-        Event event = eventDAO.findByName(apiKey, eventName);  
-        if(event != null)
-            event.addTrophy(entity);
+        EndUser endUser = endUserDAO.findByIdentifier(apiKey, userIdentifier);
+        Event event = eventDAO.findByName(apiKey, eventName);
+        
+        Action action = new Action();
+        em.persist(action);
+        action.setEvent(event);
+        endUser.addAction(action);
     }
 
     @PUT
     @Path("{id}")
     @Consumes("application/json")
-    public void edit(@PathParam("id") Long id, Trophy entity)
+    public void edit(@PathParam("id") Long id, Action entity)
     {
         super.edit(entity);
     }
@@ -66,7 +74,7 @@ public class TrophyResource extends AbstractFacade<Trophy>
     @GET
     @Path("{id}")
     @Produces("application/json")
-    public Trophy find(@PathParam("id") Long id)
+    public Action find(@PathParam("id") Long id)
     {
         return super.find(id);
     }
@@ -74,7 +82,7 @@ public class TrophyResource extends AbstractFacade<Trophy>
     @GET
     @Override
     @Produces("application/json")
-    public List<Trophy> findAll()
+    public List<Action> findAll()
     {
         return super.findAll();
     }
@@ -82,7 +90,7 @@ public class TrophyResource extends AbstractFacade<Trophy>
     @GET
     @Path("{from}/{to}")
     @Produces("application/json")
-    public List<Trophy> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to)
+    public List<Action> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to)
     {
         return super.findRange(new int[]{from, to});
     }
